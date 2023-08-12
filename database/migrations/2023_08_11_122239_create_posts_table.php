@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title',100);
             $table->string('body',400);
-            $table->string('image_file_name',100);
+            $table->string('image_file_name',100)->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
