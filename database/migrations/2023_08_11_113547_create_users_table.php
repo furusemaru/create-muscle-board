@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name',20);
-            $table->string('e-mail',100);
-            $table->string('password',20);
-            $table->string('introduce',100);
-            $table->string('image_file_name',100);
-            $table->integer('reported_number');
+            $table->string('email',100);
+            $table->string('password',200);
+            $table->string('introduce',100)->nullable();
+            $table->string('image_file_name',100)->nullable();
+            $table->integer('reported_number')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
