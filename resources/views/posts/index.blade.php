@@ -20,6 +20,11 @@
                             <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
                         </h2>
                         <p class='body'>{{ $post->body }}</p>
+                        <h5>
+                            @foreach($post->categories as $category)
+                                {{ $category->category }}
+                            @endforeach
+                        </h5>
                     </div>
                 @endforeach
             </div>
