@@ -25,6 +25,13 @@
                                 {{ $category->category }}
                             @endforeach
                         </h5>
+                        @if(Auth::id() == $post->user_id)
+                            <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" onclick="deletePost({{ $post->id }})">削除</button> 
+                            </form>
+                        @endif
                     </div>
                 @endforeach
             </div>
@@ -40,5 +47,14 @@
                 <p>ゲスト</p>
             @endauth
         </body>
+        <script>
+            function deletePost(id) {
+                'use strict'
+
+                if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
+                document.getElementById(`form_${id}`).submit();
+                }
+            }
+        </script>
     </x-app-layout>
 </html>

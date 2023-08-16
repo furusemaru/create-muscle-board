@@ -36,4 +36,25 @@ class PostController extends Controller
         
         return redirect('/posts/' . $post->id);
     }
+    public function delete(Post $post)
+    {
+        $post->delete();
+        return redirect('/');
+    }
+    public function edit(Post $post, Category $category)
+    {
+        return view('posts.edit')->with(['post' => $post,'categories' => $category->get()]);
+    }
+    public function update(PostRequest $request, Post $post)
+    {
+        $input_post = $request['post'];
+        $post->fill($input_post);
+        $post->user_id = Auth::id();
+        $post->save();
+        
+        $input_categories = $request->categories_array;
+        $post->categories()->sync($input_categories);
+    
+        return redirect('/posts/' . $post->id);
+    }
 }

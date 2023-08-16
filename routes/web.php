@@ -22,9 +22,9 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
     Route::post('/posts', 'store')->name('store');
     Route::get('/posts/create', 'create')->name('create');
     //Route::get('/posts/{post}', 'show')->name('show');
-    //Route::put('/posts/{post}', 'update');
-    //Route::delete('/posts/{post}', 'delete');
-    //Route::get('/posts/{post}/edit', 'edit');
+    Route::put('/posts/{post}', 'update')->name('update');
+    Route::delete('/posts/{post}', 'delete')->name('delete');
+    Route::get('/posts/{post}/edit', 'edit')->name('edit');
 });
 Route::get('/',[PostController::class,'index'])->name('index');
 Route::get('/posts/{post}',[PostController::class,'show']);
