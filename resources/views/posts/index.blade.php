@@ -28,11 +28,16 @@
                     </div>
                 @endforeach
             </div>
+            @auth
+                <a href='/posts/create'>新規投稿</a>
+            @endauth
             <div class='paginate'>
                 {{ $posts->links() }}
             </div>
             @auth
                 <p>{{ Auth::user()->name }}</p>
+            @else
+                <p>ゲスト</p>
             @endauth
         </body>
     </x-app-layout>
