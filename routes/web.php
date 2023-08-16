@@ -15,19 +15,19 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/',[PostController::class,'index'])->name('index');
-Route::get('/posts/{post}',[PostController::class,'show']);
+
 
 Route::controller(PostController::class)->middleware(['auth'])->group(function(){
     //Route::get('/', 'index')->name('index');
-    //Route::post('/posts', 'store');
-    //Route::get('/posts/create', 'create');
+    Route::post('/posts', 'store')->name('store');
+    Route::get('/posts/create', 'create')->name('create');
     //Route::get('/posts/{post}', 'show')->name('show');
     //Route::put('/posts/{post}', 'update');
     //Route::delete('/posts/{post}', 'delete');
     //Route::get('/posts/{post}/edit', 'edit');
 });
-
+Route::get('/',[PostController::class,'index'])->name('index');
+Route::get('/posts/{post}',[PostController::class,'show']);
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
