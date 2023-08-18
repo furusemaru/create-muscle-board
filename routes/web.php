@@ -25,7 +25,19 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
     Route::put('/posts/{post}', 'update')->name('update');
     Route::delete('/posts/{post}', 'delete')->name('delete');
     Route::get('/posts/{post}/edit', 'edit')->name('edit');
+    //URL落ち着いたらなおしたい
+    Route::get('/posts/like/{id}','like')->name('posts.like');
+    Route::get('/posts/unlike/{id}','unlike')->name('posts.unlike');
 });
+
+Route::controller(CommentController::class)->middleware(['auth'])->group(function(){
+    //コメント投稿処理
+    Route::post('/posts/{comment_id}/comments','store')->name('commnet.store');
+    //コメント取消処理
+    Route::get('/comments/{comment_id}', 'destroy');
+});
+
+
 Route::get('/',[PostController::class,'index'])->name('index');
 Route::get('/posts/{post}',[PostController::class,'show']);
 Route::get('/dashboard', function () {

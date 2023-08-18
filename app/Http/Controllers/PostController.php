@@ -6,6 +6,7 @@ use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
+use App\Models\PostLike;
 
 
 class PostController extends Controller
@@ -56,5 +57,22 @@ class PostController extends Controller
         $post->categories()->sync($input_categories);
     
         return redirect('/posts/' . $post->id);
+    }
+    
+    public function like($id)
+    {
+        PostLike::create([
+        'post_id' => $id,
+        'user_id' => Auth::id(),
+        ]);
+        
+        return redirect()->back();
+    }
+    public function unlike($id)
+    {
+        $like = PostLike::where('post_id', $id)->where('user_id', Auth::id())->first();
+        $like->delete();
+        
+        return redirect()->back();
     }
 }

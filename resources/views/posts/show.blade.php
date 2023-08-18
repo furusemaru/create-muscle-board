@@ -36,6 +36,13 @@
                     @endforeach
                 </p>
             </div>
+            <div>
+                @if($post->is_liked_by_auth_user())
+                    <a href="{{ route('posts.unlike', ['id' => $post->id]) }}" class="btn btn-success btn-sm">いいね<span class="badge">{{ $post->post_likes->count() }}</span></a>
+                @else
+                    <a href="{{ route('posts.like', ['id' => $post->id]) }}" class="btn btn-secondary btn-sm">いいね<span class="badge">{{ $post->post_likes->count() }}</span></a>
+                @endif
+            </div>
             @if(Auth::id() == $post->user_id)
                 <div class="edit"><a href="/posts/{{ $post->id }}/edit">編集</a></div>
             @endif

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends Model
 {
@@ -24,7 +25,15 @@ class Post extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+    public function post_likes()
+    {
+        return $this->hasMany(PostLike::class,'post_id');    
+    }
     
+    public function commnets()
+    {
+        return $this->hasMany(Comment::class,'post_id');
+    }
     public function getByLimit(int $limit_count = 10)
     {
         return $this->orderBy('updated_at', 'DESC')->limit($limit_count)->get();
@@ -33,5 +42,21 @@ class Post extends Model
     {
         // updated_atで降順に並べたあと、limitで件数制限をかける
         return $this->orderBy('updated_at', 'DESC')->paginate($limit_count);
+    }
+    public function is_liked_by_auth_user()
+    {
+        $id = Auth::id();
+        
+        $likers = array();
+        
+        foreach($this->post_likes as $like) {
+            array_push($likers, $like->user_id);
+        }
+
+        if (in_array($id, $likers)) {
+          return true;
+        } else {
+          return false;
+        }
     }
 }
