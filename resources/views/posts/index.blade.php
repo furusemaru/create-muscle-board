@@ -25,6 +25,7 @@
                                 {{ $category->category }}
                             @endforeach
                         </h5>
+                        <p>いいね{{$post->post_likes->count()}}</p>
                         @if(Auth::id() == $post->user_id)
                             <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
                                 @csrf
