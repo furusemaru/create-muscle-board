@@ -7,6 +7,8 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\PostLike;
+use App\Models\Comment;
+//use Illuminate\Support\Facades\Log;
 
 
 class PostController extends Controller
@@ -59,18 +61,19 @@ class PostController extends Controller
         return redirect('/posts/' . $post->id);
     }
     
-    public function like($id)
+    public function like(Post $post)
     {
         PostLike::create([
-        'post_id' => $id,
+        'post_id' => $post->id,
         'user_id' => Auth::id(),
         ]);
+        //Log::debug($post);
         
         return redirect()->back();
     }
-    public function unlike($id)
+    public function unlike(Post $post)
     {
-        $like = PostLike::where('post_id', $id)->where('user_id', Auth::id())->first();
+        $like = PostLike::where('post_id', $post->id)->where('user_id', Auth::id())->first();
         $like->delete();
         
         return redirect()->back();

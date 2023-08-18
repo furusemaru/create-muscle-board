@@ -38,14 +38,26 @@
             </div>
             <div>
                 @if($post->is_liked_by_auth_user())
-                    <a href="{{ route('posts.unlike', ['id' => $post->id]) }}" class="btn btn-success btn-sm">いいね<span class="badge">{{ $post->post_likes->count() }}</span></a>
+                    <a href="/posts/{{ $post->id }}/unlike" class="btn btn-success btn-sm">いいね<span class="badge">{{ $post->post_likes->count() }}</span></a>
                 @else
-                    <a href="{{ route('posts.like', ['id' => $post->id]) }}" class="btn btn-secondary btn-sm">いいね<span class="badge">{{ $post->post_likes->count() }}</span></a>
+                    <a href="/posts/{{ $post->id }}/like" class="btn btn-secondary btn-sm">いいね<span class="badge">{{ $post->post_likes->count() }}</span></a>
                 @endif
             </div>
             @if(Auth::id() == $post->user_id)
                 <div class="edit"><a href="/posts/{{ $post->id }}/edit">編集</a></div>
             @endif
+            
+            <form action="{{route('comment.store')}}" method="POST">
+                @csrf
+                <input type="hidden" name='post_id' value="{{$post->id}}">
+                <div class="body">
+                    <h2>コメント</h2>
+                    <textarea name="body" placeholder="コメント">{{ old('body') }}</textarea>
+                    <p class="body__error" style="color:red">{{ $errors->first('body') }}</p>
+                </div>
+                <input type="submit" value="送信"/>
+            </form>
+            
             <div class="footer">
                 <a href="/">戻る</a>
             </div>
