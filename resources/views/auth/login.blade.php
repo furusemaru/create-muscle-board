@@ -44,5 +44,5 @@
             </x-primary-button>
         </div>
     </form>
-    <a href="/">登録せず進む</a>
+    <a href="/">ログインせず進む</a>
 </x-guest-layout>

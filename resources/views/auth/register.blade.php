@@ -49,4 +49,5 @@
             </x-primary-button>
         </div>
     </form>
+    <a href="/">登録せずに進む</a>
 </x-guest-layout>

@@ -30,6 +30,17 @@ class PostController extends Controller
     {
         //postに関して
         $input = $request['post'];
+        
+        
+        
+        if($request->image != null)
+        {
+            $file_name = $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public/post_image', $file_name);
+            $post->image = 'storage/post_image/' .  $file_name;
+        }
+        
+        
         $post->fill($input);
         $post->user_id = Auth::id();
         $post->save();
@@ -50,6 +61,15 @@ class PostController extends Controller
     }
     public function update(PostRequest $request, Post $post)
     {
+        
+        if($request->image != null)
+        {
+            $file_name = $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public/post_image', $file_name);
+            $post->image = 'storage/post_image/' .  $file_name;
+        }
+        
+        
         $input_post = $request['post'];
         $post->fill($input_post);
         $post->user_id = Auth::id();

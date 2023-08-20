@@ -26,7 +26,7 @@
                 <h3>
                     画像
                 </h3>
-                <p>{{ $post->image_file_name }}</p>
+                <img src="{{asset($post->image)}}" alt="">
             </div>
             <div class="genre">
                 <h3>ジャンル</h3>
@@ -62,17 +62,18 @@
                     @endif
                 @endforeach
             </div>
-            <form action="{{route('comment.store')}}" method="POST">
-                @csrf
-                <input type="hidden" name='post_id' value="{{$post->id}}">
-                <div class="body">
-                    <h2>新規コメント</h2>
-                    <textarea name="comment[body]" placeholder="コメント">{{ old('comment.body') }}</textarea>
-                    <p class="body__error" style="color:red">{{ $errors->first('comment.body') }}</p>
-                </div>
-                <input type="submit" value="送信"/>
-            </form>
-            
+            @auth
+                <form action="{{route('comment.store')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name='post_id' value="{{$post->id}}">
+                    <div class="body">
+                        <h2>新規コメント</h2>
+                        <textarea name="comment[body]" placeholder="コメント">{{ old('comment.body') }}</textarea>
+                        <p class="body__error" style="color:red">{{ $errors->first('comment.body') }}</p>
+                    </div>
+                    <input type="submit" value="送信"/>
+                </form>
+            @endauth
             <div class="footer">
                 <a href="/">戻る</a>
             </div>

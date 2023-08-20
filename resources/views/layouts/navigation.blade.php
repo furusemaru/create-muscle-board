@@ -16,8 +16,13 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
-                        {{ __('Index') }}
+                        {{ __('投稿一覧') }}
                     </x-nav-link>
+                    @guest
+                    <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                        {{ __('新規登録') }}
+                    </x-nav-link>
+                    @endguest
                 </div>
             </div>
 
