@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email',100);
             $table->string('password',200);
             $table->string('introduce',100)->nullable();
-            $table->string('image_file_name',100)->nullable();
+            $table->string('image',100)->nullable();
             $table->integer('reported_number')->nullable();
             $table->timestamps();
             $table->softDeletes();

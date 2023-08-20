@@ -10,7 +10,7 @@
         </x-slot>
         <body>
             <div class="content">
-                <form action="/posts/{{ $post->id }}" method="POST">
+                <form action="/posts/{{ $post->id }}" enctype='multipart/form-data' method="POST">
                     @csrf
                     @method('PUT')
                     <div class='content__title'>
@@ -23,7 +23,8 @@
                     </div>
                     <div class="content__image">
                         <h2>画像</h2>
-                        <input type='text' name='post[image_file_name]' value="{{ $post->image_file_name }}">
+                        <input type="file" name="image">
+                        <img src="{{asset($post->image)}}" alt="">
                     </div>
                     <div>
                         <h2>ジャンル</h2>

@@ -9,7 +9,7 @@
                     新規投稿
         </x-slot>
         <body>
-            <form action="/posts" method="POST">
+            <form action="/posts" enctype='multipart/form-data' method="POST">
                 @csrf
                 <div class="title">
                     <h2>タイトル</h2>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="image">
                     <h2>画像</h2>
-                    <textarea name="post[image_file_name]" placeholder="jpeg"></textarea>
+                    <input type="file" name="image"> 
                 </div>
                 <div>
                     <h2>ジャンル</h2>
@@ -35,7 +35,7 @@
                         </label>
                     @endforeach
                 </div>
-                <input type="submit" value="store"/>
+                <input type="submit" value="投稿"/>
             </form>
             <div class="footer">
                 <a href="/">戻る</a>
