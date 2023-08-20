@@ -63,6 +63,7 @@ class PostController extends Controller
     
     public function like(Post $post)
     {
+        //console.log('ok');
         PostLike::create([
         'post_id' => $post->id,
         'user_id' => Auth::id(),
