@@ -1,38 +1,35 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Requests\PostRequest;
+use App\Http\Requests\CommentRequest;
 //use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
 
 class CommentController extends Controller
 {
     //
-    public function store(PostRequest $request)
-    {
-        //console.log('ok');
-        /*
-        $inputs = request()->validate([
-            'body' => 'required|max:255'
-        ]);
-        */
-        console.log("iii");
-        Comment::create([
-        'body' => $request->body,
-        'user_id' => Auth::id(),
-        'post_id' => $request->post_id,
-        ]);
-        //console.log('ok');
-        return redirect('/posts/' . $post->id);
-    }
-    public function destroy(PostRequest $request)
-    {
+    public function store(CommentRequest $request)
+   {
+        $input = $request['comment'];
         
-        $comment = Comment::find($request->comment_id);
-        $comment->delete();
+        //console.log('ok');
+        $comment = Comment::create([
+            'body' => $input['body'],
+            'user_id' => auth()->user()->id,
+            'post_id' => $request->post_id
+        ]);
+        
+        //return view('posts.index')->with(['posts' => $post->getPaginateByLimit()]);
+        return back();
+   }
+   
+   public function delete(Comment $comment_id)
+    {
+        $comment_id->delete();
         //↓保留
-        return redirect('/');
+        return back();
     }
 }

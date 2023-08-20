@@ -31,12 +31,12 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
     Route::get('/posts/{post}/unlike','unlike')->name('posts.unlike');
 });
 
-Route::post('/post/comment/store',[CommentController::class,'store'])->name('comment.store');
+//Route::post('/post/comment/store',[CommentController::class,'store'])->name('comment');
 Route::controller(CommentController::class)->middleware(['auth'])->group(function(){
     //コメント投稿処理
-    //Route::post('/posts/comment','store')->name('comment.store');
+    Route::post('/posts/comment','store')->name('comment.store');
     //コメント取消処理
-    Route::get('/comments/{comment_id}', 'destroy');
+    Route::delete('/comments/{comment_id}', 'delete')->name('comment.delete');
 });
 
 

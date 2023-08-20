@@ -30,7 +30,7 @@ class Post extends Model
         return $this->hasMany(PostLike::class,'post_id');    
     }
     
-    public function commnets()
+    public function comments()
     {
         return $this->hasMany(Comment::class,'post_id');
     }

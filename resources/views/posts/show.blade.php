@@ -46,14 +46,29 @@
             @if(Auth::id() == $post->user_id)
                 <div class="edit"><a href="/posts/{{ $post->id }}/edit">編集</a></div>
             @endif
-            
+            <h3>コメント</h3>
+            <div class="comments">
+                @foreach ($post->comments as $comment)
+                    <div>{{ $comment->user->name }}{{ $comment->created_at }}</div>
+                    <div class='comment'>
+                        {{ $comment->body }}
+                    </div>
+                    @if(Auth::id() == $comment->user->id)
+                        <form action="/comments/{{ $comment->id }}" id="form_{{ $comment->id }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" onclick="deleteComment({{ $comment->id }})">削除</button> 
+                        </form>
+                    @endif
+                @endforeach
+            </div>
             <form action="{{route('comment.store')}}" method="POST">
                 @csrf
                 <input type="hidden" name='post_id' value="{{$post->id}}">
                 <div class="body">
-                    <h2>コメント</h2>
-                    <textarea name="body" placeholder="コメント">{{ old('body') }}</textarea>
-                    <p class="body__error" style="color:red">{{ $errors->first('body') }}</p>
+                    <h2>新規コメント</h2>
+                    <textarea name="comment[body]" placeholder="コメント">{{ old('comment.body') }}</textarea>
+                    <p class="body__error" style="color:red">{{ $errors->first('comment.body') }}</p>
                 </div>
                 <input type="submit" value="送信"/>
             </form>
@@ -62,5 +77,14 @@
                 <a href="/">戻る</a>
             </div>
         </body>
+        <script>
+            function deleteComment(id) {
+                'use strict'
+
+                if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
+                document.getElementById(`form_${id}`).submit();
+                }
+            }
+        </script>
     </x-app-layout>
 </html>
