@@ -2,22 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request; //
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\PostLike;
 use App\Models\Comment;
-//use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB; //
+
+
 
 
 class PostController extends Controller
 {
     //
-    public function index(Post $post)
+    /*
+    public function index(Post $post, PostRequest $request)
     {
-        return view('posts.index')->with(['posts' => $post->getPaginateByLimit()]);
+        $instance = $post->getPaginateByLimit();
+        return view('posts.index')->with(['posts' => $instance]);
     }
+    */
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
+
+        $query = Post::query();
+
+        if(!empty($search)) {
+            $query->where('title', 'LIKE', "%{$search}%")->orwhere('body', 'LIKE', "%{$search}%");
+        }
+
+        $posts = $query->orderBy('updated_at', 'DESC')->paginate(1);
+
+        return view('posts.index', compact('posts', 'search'));
+    }
+    
+    
     public function show(Post $post)
     {
         return view('posts.show')->with(['post' => $post]);

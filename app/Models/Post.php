@@ -16,6 +16,7 @@ class Post extends Model
         'title',
         'body',
         'image',
+        'search',
     ];
     public function user()
     {
@@ -38,6 +39,7 @@ class Post extends Model
     {
         return $this->orderBy('updated_at', 'DESC')->limit($limit_count)->get();
     }
+    //↓コントローラーに記述
     public function getPaginateByLimit(int $limit_count = 1)
     {
         // updated_atで降順に並べたあと、limitで件数制限をかける
