@@ -11,6 +11,12 @@
                 投稿一覧
         </x-slot>
         <body>
+            <div>
+                <form action="{{ route('index') }}" method="GET">
+                    <input type="text" name="search" value="@if (isset($search)) {{ $search }} @endif">
+                    <input type="submit" value="検索">
+                </form>
+            </div>
             <div class='posts'>
                 @foreach ($posts as $post)
                     <div class='post'>

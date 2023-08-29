@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
                         {{ __('投稿一覧') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                        {{ __('ログイン') }}
+                    </x-nav-link>
                     @guest
                     <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
                         {{ __('新規登録') }}
