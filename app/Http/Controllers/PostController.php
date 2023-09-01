@@ -24,19 +24,39 @@ class PostController extends Controller
         return view('posts.index')->with(['posts' => $instance]);
     }
     */
-    public function index(Request $request)
+    public function index(Request $request, Category $category)
     {
         $search = $request->input('search');
-
         $query = Post::query();
-
+            //->with(['categories'])
+            //->get();
+        //dd($test);
+        
+        $categories = $category->get();
+        
+        $input_category = $request->input('category');
+        /*
+        $query = Post::whereHas('categories',function ($q) {
+            $q->where('category')
+        })
+        */
+        if(!empty($input_category)){
+            $query->whereHas('categories', function ($name) use ($input_category) {
+                $name->where('id',$input_category);
+            });
+        }
+        
         if(!empty($search)) {
             $query->where('title', 'LIKE', "%{$search}%")->orwhere('body', 'LIKE', "%{$search}%");
         }
 
         $posts = $query->orderBy('updated_at', 'DESC')->paginate(1);
-
-        return view('posts.index', compact('posts', 'search'));
+        
+        
+        
+        //$search_categories = $request->categories_array;//検索で入力されたカテゴリidを配列で取得
+        
+        return view('posts.index', compact('posts', 'search','categories','input_category'));
     }
     
     
