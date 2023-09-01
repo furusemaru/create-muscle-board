@@ -11,9 +11,44 @@
                 投稿一覧
         </x-slot>
         <body>
+            
+            {{--
+            @if($search_categories != null)
+                @foreach($search_categories as $search_category)
+                    <p>{{$search_category}}</p>
+                @endforeach
+            @endif
+            --}}
+            
             <div>
+                <div>
+                    ワード検索
+                </div>
                 <form action="{{ route('index') }}" method="GET">
-                    <input type="text" name="search" value="@if (isset($search)) {{ $search }} @endif">
+                    <input type="text" name="search" value="@if (isset($search)) {{ $search }} @endif" placeholder="検索ワード">
+                    {{--
+                    <div>
+                    @foreach($categories as $category)
+                        <label>
+                            <input type="checkbox" value="{{ $category->id }}" name="categories_array[]">
+                                {{ $category->category }}
+                            </input>
+                        </label>
+                    @endforeach
+                    </div>
+                    --}}
+                    
+                    <div>
+                        <div><label>カテゴリ</label></div>
+                        <select name='category' class="form-control">
+                            <option value="">未選択</option>
+                            @foreach($categories as $category)
+                            <option value="{{$category->id}}" @if($category->id == $input_category) selected @endif>
+                                {{ $category->category }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
                     <input type="submit" value="検索">
                 </form>
             </div>
@@ -46,7 +81,7 @@
                 <a href='/posts/create'>新規投稿</a>
             @endauth
             <div class='paginate'>
-                {{ $posts->links() }}
+                {{ $posts->appends(request()->query())->links() }}
             </div>
             @auth
                 <p>{{ Auth::user()->name }}</p>
