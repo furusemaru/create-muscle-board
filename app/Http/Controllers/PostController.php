@@ -49,14 +49,23 @@ class PostController extends Controller
         if(!empty($search)) {
             $query->where('title', 'LIKE', "%{$search}%")->orwhere('body', 'LIKE', "%{$search}%");
         }
-
-        $posts = $query->orderBy('updated_at', 'DESC')->paginate(1);
         
+        $sort = $request->input('sort');
+        
+        if(empty($sort) || $sort == 'new'){
+            $posts = $query->orderBy('updated_at', 'DESC')->paginate(1);
+        }
+        elseif($sort == 'good'){
+            $posts = $query->withCount('post_likes')->orderBy('post_likes_count','DESC')->paginate(1);
+        }
+        else{
+            $posts = $query->withCount('comments')->orderBy('comments_count','DESC')->paginate(1);
+        }
         
         
         //$search_categories = $request->categories_array;//検索で入力されたカテゴリidを配列で取得
         
-        return view('posts.index', compact('posts', 'search','categories','input_category'));
+        return view('posts.index', compact('posts', 'search','categories','input_category','sort'));
     }
     
     

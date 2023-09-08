@@ -11,33 +11,10 @@
                 投稿一覧
         </x-slot>
         <body>
-            
-            {{--
-            @if($search_categories != null)
-                @foreach($search_categories as $search_category)
-                    <p>{{$search_category}}</p>
-                @endforeach
-            @endif
-            --}}
-            
             <div>
-                <div>
-                    ワード検索
-                </div>
                 <form action="{{ route('index') }}" method="GET">
+                    <div><label>ワード検索</label></div>
                     <input type="text" name="search" value="@if (isset($search)) {{ $search }} @endif" placeholder="検索ワード">
-                    {{--
-                    <div>
-                    @foreach($categories as $category)
-                        <label>
-                            <input type="checkbox" value="{{ $category->id }}" name="categories_array[]">
-                                {{ $category->category }}
-                            </input>
-                        </label>
-                    @endforeach
-                    </div>
-                    --}}
-                    
                     <div>
                         <div><label>カテゴリ</label></div>
                         <select name='category' class="form-control">
@@ -47,6 +24,14 @@
                                 {{ $category->category }}
                             </option>
                             @endforeach
+                        </select>
+                    </div>
+                    <div><label>表示順</label></div>
+                    <div>
+                        <select name='sort'>
+                            <option value='new' @if($sort == 'new') selected @endif>新着</option>
+                            <option value='good' @if($sort == 'good') selected @endif>いいね</option>
+                            <option value='comment' @if($sort == 'comment') selected @endif>コメント</option>
                         </select>
                     </div>
                     <input type="submit" value="検索">
@@ -67,6 +52,7 @@
                             @endforeach
                         </h5>
                         <p>いいね{{$post->post_likes->count()}}</p>
+                        <p>コメント{{ $post->comments->count() }}</p>
                         @if(Auth::id() == $post->user_id)
                             <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
                                 @csrf
