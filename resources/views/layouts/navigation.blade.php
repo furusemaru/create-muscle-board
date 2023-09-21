@@ -18,10 +18,10 @@
                     <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
                         {{ __('投稿一覧') }}
                     </x-nav-link>
+                    @guest
                     <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                         {{ __('ログイン') }}
                     </x-nav-link>
-                    @guest
                     <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
                         {{ __('新規登録') }}
                     </x-nav-link>
@@ -31,6 +31,7 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+                @auth
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -62,6 +63,10 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+                @endauth
+                @guest
+                <div>ゲスト</div>
+                @endguest
             </div>
 
             <!-- Hamburger -->

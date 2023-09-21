@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\PostLike;
 use App\Models\Comment;
 use Illuminate\Support\Facades\DB; //
+use Illuminate\Pagination\Paginator;
 
 
 
@@ -53,13 +54,13 @@ class PostController extends Controller
         $sort = $request->input('sort');
         
         if(empty($sort) || $sort == 'new'){
-            $posts = $query->orderBy('updated_at', 'DESC')->paginate(1);
+            $posts = $query->orderBy('updated_at', 'DESC')->paginate(10);
         }
         elseif($sort == 'good'){
-            $posts = $query->withCount('post_likes')->orderBy('post_likes_count','DESC')->paginate(1);
+            $posts = $query->withCount('post_likes')->orderBy('post_likes_count','DESC')->paginate(10);
         }
         else{
-            $posts = $query->withCount('comments')->orderBy('comments_count','DESC')->paginate(1);
+            $posts = $query->withCount('comments')->orderBy('comments_count','DESC')->paginate(10);
         }
         
         
