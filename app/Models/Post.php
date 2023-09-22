@@ -61,4 +61,20 @@ class Post extends Model
           return false;
         }
     }
+    public function is_commented_by_auth_user()
+    {
+        $id = Auth::id();
+        
+        $commenters = array();
+        
+        foreach($this->comments as $comment) {
+            array_push($commenters, $comment->user_id);
+        }
+        
+        if(in_array($id, $commenters)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

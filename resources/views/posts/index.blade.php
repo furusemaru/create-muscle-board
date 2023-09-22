@@ -57,7 +57,7 @@
                     <ul>
                         @foreach($posts as $post)
                         <a class='block' href="/posts/{{ $post->id }}">
-                            <li class="flex justify-between gap-x-6 py-5 border-t-2">
+                            <li class="flex justify-between gap-x-6 py-5 border-t-2 hover:bg-blue-100">
                                 <div class="flex min-w-0 gap-x-4 items-center">
                                     <img class="h-12 w-12 flex-none rounded-full bg-gray-50" @if($post->image != null) src="{{asset($post->image)}}" @else src="{{asset('/storage/post_image/画像無し.jpeg')}}" @endif alt=''>
                                     <div class="min-w-0 flex-auto">
@@ -74,8 +74,16 @@
                                         @endforeach
                                     </p>
                                     <p class="text-sm leading-6 text-gray-900">
-                                        <span>いいね{{$post->post_likes->count()}}</span>
+                                        @if($post->is_liked_by_auth_user())
+                                        <span class='text-red-600 font-bold'>いいね</span><span>{{$post->post_likes->count()}}</span>
+                                        @else
+                                        <span>いいね</span><span>{{$post->post_likes->count()}}</span>
+                                        @endif
+                                        @if($post->is_commented_by_auth_user())
+                                        <span class='text-red-600 font-bold'>コメント</span><span>{{ $post->comments->count() }}</span>
+                                        @else
                                         <span>コメント{{ $post->comments->count() }}</span>
+                                        @endif
                                     </p>
                                 </div>    
                             </li>

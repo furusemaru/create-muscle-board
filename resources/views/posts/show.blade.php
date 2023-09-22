@@ -54,6 +54,15 @@
                     @if($post->image != null)
                     <img class="h-48 w-96 object-cover flex-none bg-gray-50" src="{{asset($post->image)}}" alt="">
                     @endif
+                    @if($post->is_liked_by_auth_user())
+                    <div class='mt-3'>
+                        <a href="/posts/{{ $post->id }}/unlike" class="btn btn-success btn-sm mt-6"><button class="bg-gray-300 hover:bg-gray-200 text-white rounded px-4 py-2">いいね済</button></a>
+                    </div>
+                    @else
+                    <div class='mt-3'>
+                        <a href="/posts/{{ $post->id }}/like" class="btn btn-secondary btn-sm mt-6"><button class="bg-gray-600 hover:bg-gray-500 text-white rounded px-4 py-2">いいね</button></a>
+                    </div>
+                    @endif
                 </div>
                 @auth
                 <form class="mb-6 w-3/4" action="{{ route('comment.store') }}" method="POST">
@@ -68,14 +77,25 @@
                 </form>
                 @endauth
                 @foreach($post->comments as $comment)
-                <article class="py-6 text-base dark:bg-gray-900 w-3/4">
-                    <footer class="flex justify-start items-center mb-2">
-                        <div class="flex items-center">
-                            <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">{{ $comment->user->name }}</p>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">{{$comment->created_at->diffForHumans()}}</p>
-                        </div>
-                    </footer>
-                    <p class="text-gray-500 dark:text-gray-400">{{ $comment->body }}</p>
+                <article class="py-6 text-base dark:bg-gray-900 w-3/4 flex justify-between">
+                    <div>
+                        <footer class="flex justify-start items-center mb-2">
+                            <div class="flex items-center">
+                                <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">{{ $comment->user->name }}</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">{{$comment->created_at->diffForHumans()}}</p>
+                            </div>
+                        </footer>
+                        <p class="text-gray-500 dark:text-gray-400">{{ $comment->body }}</p>
+                    </div>
+                    <div class='flex items-center'>
+                        @if(Auth::id() == $comment->user->id)
+                        <form action="/comments/{{ $comment->id }}" id="form_{{ $comment->id }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800" type="button" onclick="deleteComment({{ $comment->id }})">削除</button> 
+                        </form>
+                        @endif
+                    </div>
                 </article>
                 @endforeach
                 <div class="footer w-3/4 flex justify-center">
