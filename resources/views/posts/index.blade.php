@@ -14,6 +14,10 @@
         </x-slot>
         <body>
             <div class='flex flex-col items-center'>
+                <div class='title-box w-3/4 text-center my-6'>
+                    <h1 class='text-6xl font-black'>筋トレ掲示板</h1>
+                    <p class='text-sm font-normal mt-6'>ここは筋トレについての掲示板です。この掲示板は登録しないと閲覧しかできないクリーンな掲示板です！！</p>
+                </div>
                 <div class='search-box　w-3/4'>
                     <form action="{{ route('index') }}" method="GET" class='my-6'>
                         <div class='flex'>

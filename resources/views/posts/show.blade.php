@@ -54,6 +54,7 @@
                     @if($post->image != null)
                     <img class="h-48 w-96 object-cover flex-none bg-gray-50" src="{{ $post->image }}" alt="画像が読み込めません。" {{--src="{{asset($post->image)}}" alt=""--}}>
                     @endif
+                    @auth
                     @if($post->is_liked_by_auth_user())
                     <div class='mt-3'>
                         <a href="/posts/{{ $post->id }}/unlike" class="btn btn-success btn-sm mt-6"><button class="bg-gray-300 hover:bg-gray-200 text-white rounded px-4 py-2">いいね済</button></a>
@@ -63,6 +64,7 @@
                         <a href="/posts/{{ $post->id }}/like" class="btn btn-secondary btn-sm mt-6"><button class="bg-gray-600 hover:bg-gray-500 text-white rounded px-4 py-2">いいね</button></a>
                     </div>
                     @endif
+                    @endauth
                 </div>
                 @auth
                 <form class="mb-6 w-3/4" action="{{ route('comment.store') }}" method="POST">
