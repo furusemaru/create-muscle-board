@@ -52,7 +52,7 @@
                         @endif
                     </div>
                     @if($post->image != null)
-                    <img class="h-48 w-96 object-cover flex-none bg-gray-50" src="{{asset($post->image)}}" alt="">
+                    <img class="h-48 w-96 object-cover flex-none bg-gray-50" src="{{ $post->image }}" alt="画像が読み込めません。" {{--src="{{asset($post->image)}}" alt=""--}}>
                     @endif
                     @if($post->is_liked_by_auth_user())
                     <div class='mt-3'>
