@@ -59,7 +59,11 @@
                         <a class='block' href="/posts/{{ $post->id }}">
                             <li class="flex justify-between gap-x-6 py-5 border-t-2 hover:bg-blue-100">
                                 <div class="flex min-w-0 gap-x-4 items-center">
-                                    <img class="h-12 w-12 flex-none rounded-full bg-gray-50" @if($post->image != null) src="{{ $post->image }}" @else src="{{asset('/storage/post_image/画像無し.jpeg')}}" @endif alt="画像が読み込めません。"{{--@if($post->image != null) src="{{asset($post->image)}}" @else src="{{asset('/storage/post_image/画像無し.jpeg')}}" @endif alt=''--}}>
+                                    @if($post->image != null)
+                                    <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="{{ $post->image }}" alt="画像が読み込めません。"{{--@if($post->image != null) src="{{asset($post->image)}}" @else src="{{asset('/storage/post_image/画像無し.jpeg')}}" @endif alt=''--}}>
+                                    @else
+                                    <svg class="h-12 w-12 text-black-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round">  <circle cx="12" cy="12" r="10" />  <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" /></svg>
+                                    @endif
                                     <div class="min-w-0 flex-auto">
                                         <p class="text-sm font-semibold leading-6 text-gray-900">{{$post->user->name}}</p>
                                         <!--<p class="mt-1 truncate text-xs leading-5 text-gray-500">leslie.alexander@example.com</p>-->
