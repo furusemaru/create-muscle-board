@@ -33,7 +33,7 @@
                         <input type="file" name="image" id='image' value='asset{{($post->image)}}'> 
                         @if($post->image != null)
                         <label for="body" class="block text-sm font-medium leading-6 text-gray-500">登録していた画像</label>
-                        <img class="h-48 w-96 object-cover flex-none bg-gray-50" src="{{asset($post->image)}}" alt="">
+                        <img class="h-48 w-96 object-cover flex-none bg-gray-50" src="{{ $post->image }}" alt="画像が読み込めません。" {{--src="{{asset($post->image)}}" alt="" --}}>
                         @endif
                     </div>
                     <div class='genre mb-6'>

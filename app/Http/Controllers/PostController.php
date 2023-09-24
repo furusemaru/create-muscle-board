@@ -11,6 +11,7 @@ use App\Models\PostLike;
 use App\Models\Comment;
 use Illuminate\Support\Facades\DB; //
 use Illuminate\Pagination\Paginator;
+use Cloudinary;
 
 
 
@@ -82,15 +83,21 @@ class PostController extends Controller
     {
         //postに関して
         $input = $request['post'];
+        if($request->file('image')){
+            $image = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+            $input += ['image' => $image];
+        }
         
         
         
+        /*
         if($request->image != null)
         {
             $file_name = $request->file('image')->getClientOriginalName();
             $request->file('image')->storeAs('public/post_image', $file_name);
             $post->image = 'storage/post_image/' .  $file_name;
         }
+        */
         
         
         $post->fill($input);
