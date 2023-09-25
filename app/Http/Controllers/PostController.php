@@ -58,10 +58,10 @@ class PostController extends Controller
             $posts = $query->orderBy('updated_at', 'DESC')->paginate(10);
         }
         elseif($sort == 'good'){
-            $posts = $query->withCount('post_likes')->orderBy('post_likes_count','DESC')->paginate(10);
+            $posts = $query->withCount('post_likes')->orderBy('post_likes_count','DESC')->orderBy('updated_at', 'DESC')->paginate(10);
         }
         else{
-            $posts = $query->withCount('comments')->orderBy('comments_count','DESC')->paginate(10);
+            $posts = $query->withCount('comments')->orderBy('comments_count','DESC')->orderBy('updated_at', 'DESC')->paginate(10);
         }
         
         

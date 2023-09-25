@@ -29,7 +29,7 @@ class CommentRequest extends FormRequest
             //
             //'user_id' => 'required',
             'post_id' => 'required',
-            'comment.body' => 'required|string|max:200',
+            'comment.body' => 'required|string|max:50',
         ];
     }
 }

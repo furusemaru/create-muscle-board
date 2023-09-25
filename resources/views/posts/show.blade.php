@@ -71,8 +71,9 @@
                     @csrf
                     <input type="hidden" name='post_id' value="{{$post->id}}">
                     <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                        <textarea name="comment[body]" id="comment" rows="6" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" placeholder="コメントをするときはこちら" required></textarea>
+                        <textarea name="comment[body]" id="comment" rows="6" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" placeholder="コメントをするときはこちら（50字以内）">{{old('comment.body')}}</textarea>
                     </div>
+                    <p class="body__error" style="color:red">{{ $errors->first('comment.body') }}</p>
                     <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
                         送信
                     </button>

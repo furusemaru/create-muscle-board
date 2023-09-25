@@ -16,16 +16,18 @@
                 <form class='w-3/4' action="/posts" enctype='multipart/form-data' method="POST">
                     @csrf
                     <div class='title'>
-                        <label for="title" class="block text-sm font-medium leading-6 text-gray-900">タイトル</label>
+                        <label for="title" class="block text-sm font-medium leading-6 text-gray-900">タイトル<span class='text-red-600'>*</span></label>
                         <div class="w-1/3 py-1 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                            <input type="text" name="post[title]" id="title" placeholder="" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" required>
+                            <input type="text" name="post[title]" id="title" placeholder="50字以内" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" value="{{ old('post.title') }}">
                         </div>
+                        <p class="title__error" style="color:red">{{ $errors->first('post.title') }}</p>
                     </div>
                     <div class="body">
-                        <label for="body" class="block text-sm font-medium leading-6 text-gray-900">内容</label>
+                        <label for="body" class="block text-sm font-medium leading-6 text-gray-900">内容<span class='text-red-600'>*</span></label>
                         <div class="w-1/3 py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                            <textarea name="post[body]" id='body' placeholder="" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" required></textarea>
+                            <textarea name="post[body]" id='body' placeholder="200字以内" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800">{{ old('post.title') }}</textarea>
                         </div>
+                        <p class="body__error" style="color:red">{{ $errors->first('post.body') }}</p>
                     </div>
                     <div class="image mb-6">
                         <label for="image" class="block text-sm font-medium leading-6 text-gray-900">画像</label>
