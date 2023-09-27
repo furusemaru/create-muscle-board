@@ -17,7 +17,8 @@ class UserController extends Controller
         $query = Post::where('user_id',$current_user);
         
         
-        $query->withCount('reports')->having('reports_count', '>=', 1);
+        $query->withCount('reports');
+        $query->having('reports_count', '>=', 1);
         $posts = $query->get();
         
         $number = $posts->count();
