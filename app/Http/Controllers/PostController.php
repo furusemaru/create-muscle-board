@@ -12,6 +12,7 @@ use App\Models\Comment;
 use Illuminate\Support\Facades\DB; //
 use Illuminate\Pagination\Paginator;
 use Cloudinary;
+use App\Models\Report;
 
 
 
@@ -70,6 +71,90 @@ class PostController extends Controller
         return view('posts.index', compact('posts', 'search','categories','input_category','sort'));
     }
     
+    public function my_posts(Request $request, Category $category){
+        $search = $request->input('search');
+        
+        $current_user = Auth::id();
+        
+        $query = Post::where('user_id',$current_user);
+        
+        
+        $categories = $category->get();
+        
+        $input_category = $request->input('category');
+        
+        if(!empty($input_category)){
+            $query->whereHas('categories', function ($name) use ($input_category) {
+                $name->where('id',$input_category);
+            });
+        }
+        
+        if(!empty($search)) {
+            $query->where('title', 'LIKE', "%{$search}%")->orwhere('body', 'LIKE', "%{$search}%");
+        }
+        
+        $sort = $request->input('sort');
+        
+        if(empty($sort) || $sort == 'new'){
+            $posts = $query->orderBy('updated_at', 'DESC')->paginate(10);
+        }
+        elseif($sort == 'good'){
+            $posts = $query->withCount('post_likes')->orderBy('post_likes_count','DESC')->orderBy('updated_at', 'DESC')->paginate(10);
+        }
+        else{
+            $posts = $query->withCount('comments')->orderBy('comments_count','DESC')->orderBy('updated_at', 'DESC')->paginate(10);
+        }
+        
+        
+        //$search_categories = $request->categories_array;//検索で入力されたカテゴリidを配列で取得
+        
+        return view('posts.my_index', compact('posts', 'search','categories','input_category','sort'));
+    }
+    
+    public function related_posts(Request $request, Category $category){
+        $search = $request->input('search');
+        
+        $current_user = Auth::id();
+        
+        $query = Post::whereHas('post_likes', function($inp) {
+            $inp->where('user_id', Auth::id());
+        })
+        ->orWhereHas('comments', function($inp2) {
+            $inp2->where('user_id', Auth::id());
+        });
+        
+        
+        $categories = $category->get();
+        
+        $input_category = $request->input('category');
+        
+        if(!empty($input_category)){
+            $query->whereHas('categories', function ($name) use ($input_category) {
+                $name->where('id',$input_category);
+            });
+        }
+        
+        if(!empty($search)) {
+            $query->where('title', 'LIKE', "%{$search}%")->orwhere('body', 'LIKE', "%{$search}%");
+        }
+        
+        $sort = $request->input('sort');
+        
+        if(empty($sort) || $sort == 'new'){
+            $posts = $query->orderBy('updated_at', 'DESC')->paginate(10);
+        }
+        elseif($sort == 'good'){
+            $posts = $query->withCount('post_likes')->orderBy('post_likes_count','DESC')->orderBy('updated_at', 'DESC')->paginate(10);
+        }
+        else{
+            $posts = $query->withCount('comments')->orderBy('comments_count','DESC')->orderBy('updated_at', 'DESC')->paginate(10);
+        }
+        
+        
+        //$search_categories = $request->categories_array;//検索で入力されたカテゴリidを配列で取得
+        
+        return view('posts.related_posts', compact('posts', 'search','categories','input_category','sort'));
+    }
     
     public function show(Post $post)
     {
@@ -87,18 +172,6 @@ class PostController extends Controller
             $image = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
             $input += ['image' => $image];
         }
-        
-        
-        
-        /*
-        if($request->image != null)
-        {
-            $file_name = $request->file('image')->getClientOriginalName();
-            $request->file('image')->storeAs('public/post_image', $file_name);
-            $post->image = 'storage/post_image/' .  $file_name;
-        }
-        */
-        
         
         $post->fill($input);
         $post->user_id = Auth::id();
@@ -158,4 +231,24 @@ class PostController extends Controller
         
         return redirect()->back();
     }
+    
+    public function report(Post $post)
+    {
+        Report::create([
+        'post_id' => $post->id,
+        'user_id' => Auth::id()
+        ]);
+        
+        return redirect()->back();
+    }
+    
+    public function unreport(Post $post)
+    {
+        $report = Report::where('post_id', $post->id)->where('user_id', Auth::id())->first();
+        $report->delete();
+        
+        return redirect()->back();
+    }
+    
+    
 }
