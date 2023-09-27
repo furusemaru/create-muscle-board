@@ -13,11 +13,19 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('ダッシュボード') }}
                     </x-nav-link>
                     <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
                         {{ __('投稿一覧') }}
                     </x-nav-link>
+                    @auth
+                    <x-nav-link :href="route('my_posts')" :active="request()->routeIs('my_posts')">
+                        {{ __('自分の投稿') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('related_posts')" :active="request()->routeIs('related_posts')">
+                        {{ __('関連投稿') }}
+                    </x-nav-link>
+                    @endauth
                     @guest
                     <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                         {{ __('ログイン') }}

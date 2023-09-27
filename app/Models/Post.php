@@ -35,6 +35,12 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class,'post_id');
     }
+    
+    public function reports()
+    {
+        return $this->hasMany(Report::class,'post_id');
+    }
+    
     public function getByLimit(int $limit_count = 10)
     {
         return $this->orderBy('updated_at', 'DESC')->limit($limit_count)->get();
@@ -42,7 +48,6 @@ class Post extends Model
     //↓コントローラーに記述
     public function getPaginateByLimit(int $limit_count = 1)
     {
-        // updated_atで降順に並べたあと、limitで件数制限をかける
         return $this->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
     public function is_liked_by_auth_user()
@@ -76,5 +81,23 @@ class Post extends Model
         } else {
             return false;
         }
+    }
+    
+    public function is_reported_by_auth_user()
+    {
+        $id = Auth::id();
+        
+        $reporters = array();
+        
+        foreach($this->reports as $report) {
+            array_push($reporters, $report->user_id);
+        }
+        if(in_array($id, $reporters)) {
+            return true;
+        } else {
+            return false;
+        }
+        
+        
     }
 }
