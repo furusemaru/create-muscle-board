@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -16,9 +14,6 @@ class UserController extends Controller
         
         $query = Post::where('user_id',$current_user);
         
-        
-        //$query->withCount('reports');
-        //$query->having('reports_count', '>=', 1);
         $posts = $query->has('reports','>=', 1)->get();
         
         $number = $posts->count();
