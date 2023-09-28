@@ -58,11 +58,11 @@ v1.0.0
  
 作成情報を列挙する
  
-* 作成者
+* 作成者<br>
 古瀬佑太
-* 所属
+* 所属<br>
 東京工業大学大学院　工学院　電気電子系　修士1年
-* E-mail  
+* E-mail<br>
 furuse_yuta@icloud.com
  
 # License
