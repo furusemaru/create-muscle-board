@@ -6,7 +6,11 @@
  
 # DEMO
 
-https://github.com/furusemaru/create-muscle-board/assets/138269691/de923b48-ee21-457b-bae0-862842c687ee
+
+
+https://github.com/furusemaru/create-muscle-board/assets/138269691/0ba50bae-4143-4199-9691-f57386efe94a
+
+
 
 # functions
 
@@ -33,7 +37,11 @@ https://github.com/furusemaru/create-muscle-board/assets/138269691/de923b48-ee21
 
 # Features
  
-"hoge"のセールスポイントや差別化などを説明する
+他の掲示板と比較して非登録のユーザーの権限が弱く、投稿やコメントを閲覧することしかできない。
+それによりアプリが荒れることを防いでいる。
+また投稿に対して通報を行うことができ、通報されたユーザーにその投稿を削除、編集することを促すような通知が来るようになっている。
+
+これらの理由からほかの掲示板よりクリーンな掲示板を実現している。
  
 # Requirement
  
