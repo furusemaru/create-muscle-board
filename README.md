@@ -54,8 +54,7 @@ html, css, tailwind, JavaScript, php, laravel, DB, Cloudinary
 
 # ER diagram
 
-![image](https://github.com/furusemaru/create-muscle-board/assets/138269691/2b3bd21e-ecc6-441a-9832-bb8011652b37)
-
+![image](https://github.com/furusemaru/create-muscle-board/assets/138269691/d78631a6-bdb3-4a50-b4c0-1502d92d8111)
 
 # URL
 
