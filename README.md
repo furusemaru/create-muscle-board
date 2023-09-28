@@ -48,16 +48,22 @@ https://github.com/furusemaru/create-muscle-board/assets/138269691/0ba50bae-4143
 [筋トレ掲示板](https://muscle-board-b1ba4833b6d1.herokuapp.com/)
 
 # Note
- 
-注意点などがあれば書く
+
+バージョン
+v1.0.0
+
+開発を初めて間もないため予期しないエラーが発生する場合がございます。
  
 # Author
  
 作成情報を列挙する
  
 * 作成者
+古瀬佑太
 * 所属
-* E-mail
+東京工業大学大学院　工学院　電気電子系　修士1年
+* E-mail  
+furuse_yuta@icloud.com
  
 # License
 ライセンスを明示する
