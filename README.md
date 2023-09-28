@@ -16,7 +16,7 @@ https://github.com/furusemaru/create-muscle-board/assets/138269691/0ba50bae-4143
 
 ※初めての製作物のため基本的な機能も掲載いたします
 
-・ログイン機能  
+・ログイン機能<br>
 ・ユーザー新規登録機能  
 ・ユーザー削除機能  
 ・投稿機能  
