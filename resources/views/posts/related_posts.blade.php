@@ -10,7 +10,9 @@
     </head>
     <x-app-layout>
         <x-slot name="header">
-                関連投稿
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('関連投稿') }}
+            </h2>
         </x-slot>
         <body>
             <div class='flex flex-col items-center'>

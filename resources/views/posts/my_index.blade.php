@@ -10,7 +10,9 @@
     </head>
     <x-app-layout>
         <x-slot name="header">
-                自分の投稿
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('自分の投稿') }}
+            </h2>
         </x-slot>
         <body>
             <div class='flex flex-col items-center'>
@@ -99,32 +101,6 @@
                         @endforeach
                     </ul>
                 </div>
-                {{--<div class='post-box'>
-                    @foreach ($posts as $post)
-                        <div class='post mb-6'>
-                            <p>{{ $post->user->name }}</p>
-                            <p>{{ $post->updated_at }}</p>
-                            <h2 class='title'>
-                                <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
-                            </h2>
-                            <p class='body'>{{ $post->body }}</p>
-                            <h5>
-                                @foreach($post->categories as $category)
-                                    {{ $category->category }}
-                                @endforeach
-                            </h5>
-                            <p>いいね{{$post->post_likes->count()}}</p>
-                            <p>コメント{{ $post->comments->count() }}</p>
-                            @if(Auth::id() == $post->user_id)
-                                <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" onclick="deletePost({{ $post->id }})">削除</button> 
-                                </form>
-                            @endif
-                        </div>
-                    @endforeach
-                </div>--}}
                 <div class='pagination w-3/4 py-6 border-t-2'>
                     {{ $posts->appends(request()->query())->links('vendor.pagination.tailwind') }}
                 </div>

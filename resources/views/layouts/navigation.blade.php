@@ -12,9 +12,11 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    @auth
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('ダッシュボード') }}
                     </x-nav-link>
+                    @endauth
                     <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
                         {{ __('投稿一覧') }}
                     </x-nav-link>
@@ -27,7 +29,7 @@
                     </x-nav-link>
                     @endauth
                     @guest
-                    <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                    <x-nav-link :href="route('login')" :active="request()->routeIs('login')" >
                         {{ __('ログイン') }}
                     </x-nav-link>
                     <x-nav-link :href="route('register')" :active="request()->routeIs('register')">

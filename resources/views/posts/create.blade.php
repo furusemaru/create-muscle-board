@@ -9,7 +9,9 @@
     </head>
     <x-app-layout>
         <x-slot name="header">
-            新規投稿
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('新規投稿') }}
+            </h2>
         </x-slot>
         <body>
             <div class='flex flex-col items-center mt-6'>
@@ -50,40 +52,7 @@
                 <div class="footer w-3/4 flex justify-center mt-36">
                     <a href="/"><button class="bg-green-600 hover:bg-green-500 text-white rounded px-4 py-2">戻る</button></a>
                 </div>
-                    
-            {{--
-            <form action="/posts" enctype='multipart/form-data' method="POST">
-                @csrf
-                <div class="title">
-                    <h2>タイトル</h2>
-                    <input type="text" name="post[title]" placeholder="タイトル" value="{{ old('post.title') }}"/>
-                    <p class="title__error" style="color:red">{{ $errors->first('post.title') }}</p>
-                </div>
-                <div class="body">
-                    <h2>内容</h2>
-                    <textarea name="post[body]" placeholder="今日も1日お疲れさまでした。">{{ old('post.body') }}</textarea>
-                    <p class="body__error" style="color:red">{{ $errors->first('post.body') }}</p>
-                </div>
-                <div class="image">
-                    <h2>画像</h2>
-                    <input type="file" name="image"> 
-                </div>
-                <div>
-                    <h2>ジャンル</h2>
-                    @foreach($categories as $category)
-                        <label>
-                            <input type="checkbox" value="{{ $category->id }}" name="categories_array[]">
-                                {{ $category->category }}
-                            </input>
-                        </label>
-                    @endforeach
-                </div>
-                <input type="submit" value="投稿"/>
-            </form>
-            <div class="footer">
-                <a href="/">戻る</a>
             </div>
-            --}}
         </body>
     </x-app-layout>
 </html>
