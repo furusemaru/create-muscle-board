@@ -5,8 +5,8 @@
 "hoge"が何かを簡潔に紹介する
  
 # DEMO
- 
-"hoge"の魅力が直感的に伝えわるデモ動画や図解を載せる
+
+https://github.com/furusemaru/create-muscle-board/assets/138269691/de923b48-ee21-457b-bae0-862842c687ee
  
 # Features
  
