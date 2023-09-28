@@ -5,8 +5,13 @@
 この掲示板は筋トレについての投稿を行いそれに対して他のユーザーなどがコメントをするような掲示板アプリである。
  
 # DEMO
+<<<<<<< HEAD
  
 
+=======
+
+https://github.com/furusemaru/create-muscle-board/assets/138269691/de923b48-ee21-457b-bae0-862842c687ee
+>>>>>>> origin/master
  
 # Features
  
