@@ -21,15 +21,12 @@ class CommentController extends Controller
             'user_id' => auth()->user()->id,
             'post_id' => $request->post_id
         ]);
-        
-        //return view('posts.index')->with(['posts' => $post->getPaginateByLimit()]);
         return back();
    }
    
    public function delete(Comment $comment_id)
     {
         $comment_id->delete();
-        //↓保留
         return back();
     }
 }
